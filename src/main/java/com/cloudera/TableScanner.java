@@ -24,13 +24,12 @@ public class TableScanner implements Callable<String> {
     HTable table = new HTable(HBaseConfiguration.create(), tableName);
 
     Scan s = new Scan();
-    s.setCaching(10);
+    s.setCaching(1000);
     for (int i = 0; i< 10000; i++) {
       ResultScanner rs = table.getScanner(s);
-
-      for (Result r = rs.next(); r != null; r = rs.next()) {
-        //Totally ignored
-      }
+      rs.next();
+      rs.next();
+      rs.next();
     }
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
